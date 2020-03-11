@@ -1,0 +1,32 @@
+[
+    {
+        "planName": "Strength Workout",
+        "duration": 7,
+        "description": "To get a balanced body",
+        "startDate": "2020-03-11T09:35:06.581Z"
+    },
+    {
+        "planName": "Cardio Intervals",
+        "duration": 14,
+        "description": "To loose weight",
+        "startDate": "2020-03-11T09:35:06.581Z"
+    },
+    {
+        "planName": "30-Days Workout Challenge",
+        "duration": 30,
+        "description": "Intensive fat burning plan",
+        "startDate": "2020-03-11T09:35:06.581Z"
+    },
+    {
+        "planName": "Home Workout",
+        "duration": 5,
+        "description": "No equipment needed",
+        "startDate": "2020-03-11T09:35:06.581Z"
+    },
+    {
+        "planName": "Bulletproof Body",
+        "duration": 21,
+        "description": "Total body super circuit plan",
+        "startDate": "2020-03-11T09:35:06.581Z"
+    }
+]
