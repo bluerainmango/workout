@@ -3,6 +3,9 @@ const planController = require("../controllers/planController");
 
 const router = express.Router();
 
-router.get("/", planController.getPlans);
+router
+  .route("/")
+  .get(planController.getAllPlans)
+  .post(planController.createPlan);
 
 module.exports = router;

@@ -1,17 +1,18 @@
 const mongoose = require("mongoose");
 
-const PlanSchema = new mongoose.Schema(
+const planSchema = new mongoose.Schema(
   {
     planName: {
       type: String,
       required: [true, "A plan must have a name"],
-      unique: true,
+
       trim: true,
       maxlength: [30, "A plan name must have less or equal than 30 characters"],
       minlength: [3, "A plan name must have at least 3 characters"]
     },
     duration: {
       type: Number,
+      unique: true,
       required: [true, "A plan must have a duration"]
     },
     description: {
@@ -21,22 +22,27 @@ const PlanSchema = new mongoose.Schema(
     startDate: {
       type: Date
     }
-    // exercise: [
-    //   {
-    //     type: mongoose.Schema.ObjectId,
-    //     ref: "Exercise"
-    //   }
-    // ]
   },
-  { toJSON: { virtuals: ture }, toObject: { virtuals: ture } }
+  { toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
 
-PlanSchema.virtual("exercise", {
+// Virtual Referencing to exercise
+planSchema.virtual("exercise", {
   ref: "Exercise",
   foreignField: "plan",
   localField: "_id"
 });
 
-const Plan = mongoose.model("Plan", PlanSchema);
+// Populating exercise
+planSchema.pre(/^find/, function(next) {
+  this.populate({
+    path: "exercise",
+    select: "exerciseName description duration -plan"
+  });
+
+  next();
+});
+
+const Plan = mongoose.model("Plan", planSchema);
 
 module.exports = Plan;

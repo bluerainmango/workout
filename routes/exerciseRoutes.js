@@ -3,6 +3,9 @@ const exerciseController = require("../controllers/excerciseController");
 
 const router = express.Router();
 
-router.get("/", exerciseController.getAllExercise);
+router
+  .route("/")
+  .get(exerciseController.getAllExercise)
+  .post(exerciseController.createExercise);
 
 module.exports = router;
