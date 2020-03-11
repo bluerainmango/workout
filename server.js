@@ -1,8 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const dotenv = require("dotenv").config();
-
-const app = require("./app");
+require("dotenv").config();
 
 const PORT = process.env.PORT || 3000;
 
@@ -16,6 +14,8 @@ mongoose
   .then(() => {
     console.log("MongoDB is successfully connected!");
   });
+
+const app = require("./app");
 
 app.listen(PORT, () => {
   console.log("listening...");
