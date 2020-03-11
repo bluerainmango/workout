@@ -26,3 +26,16 @@ exports.createExercise = async (req, res, next) => {
     data: doc
   });
 };
+
+exports.updateExercise = async (req, res, next) => {
+  const updatedDoc = await Exercise.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+    runValidators: true
+  });
+
+  res.status(200).json({
+    status: "success",
+    message: "Successfully updated excercise in the plan",
+    data: updatedDoc
+  });
+};

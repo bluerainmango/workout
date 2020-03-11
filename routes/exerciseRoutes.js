@@ -8,4 +8,6 @@ router
   .get(exerciseController.getAllExercise)
   .post(exerciseController.createExercise);
 
+router.route("/:id").patch(exerciseController.updateExercise);
+
 module.exports = router;

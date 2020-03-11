@@ -17,10 +17,6 @@ const ExerciseSchema = new mongoose.Schema(
       type: Number,
       required: [true, "a exercise must have a duration"]
     },
-    // description: {
-    //   type: String,
-    //   trim: true
-    // },
     plan: [
       {
         type: mongoose.Schema.ObjectId,
