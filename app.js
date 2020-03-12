@@ -18,12 +18,9 @@ if (process.env.NODE_ENV === "development") {
 }
 
 // View router
-// app.use("/", (req, res) => {
-//   res.status(200).json({
-//     status: "success",
-//     message: "hehe"
-//   });
-// });
+app.use("/", (req, res) => {
+  res.status(200).send("index.html");
+});
 
 // API routers
 app.use("/api/plans", planRouter);

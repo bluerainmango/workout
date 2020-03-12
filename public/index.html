@@ -3,9 +3,136 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Workout</title>
+    <!-- Compiled and minified CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
-    hellodddd
+    <header><h2>Workout Planner</h2></header>
+    <main>
+      <section class="plan__new">
+        <h3>New Plan</h3>
+        <form class="form">
+          <div class="row">
+            <div class="input-field">
+              <input id="planName" type="text" />
+              <label for="planName">Plan name</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field">
+              <input id="duration" type="text" />
+              <label for="duration">Duration</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field">
+              <input id="description" type="text" />
+              <label for="description">Description</label>
+            </div>
+          </div>
+
+          <a class="waves-effect waves-light btn">Add</a>
+        </form>
+      </section>
+
+      <section class="plan__old">
+        <h3>Previous Plan</h3>
+        <div class="cards">
+          <div class="carousel">
+
+            <div class="carousel-item">
+                <div class="card">
+                  <div class="card-content">
+                    <span class="card-title">Strength Workout</span>
+                    <p>
+                      To get a balanced body
+                    </p>
+                  </div>
+                  <div class="card-action">
+                    <p class="duration">Duration <span>7 days</span></p>
+                    <p class="date">Start Date <span>Mar. 14th. 2020</span></p>
+                    <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
+                  </div>
+                  <div class="card-action" id="exercise">
+                    <h6>Exercise</h6>
+                    <div class="exercise-item">
+                      <p>50 Tricep Dips</p>
+                      <p><span>15</span> Min</p>
+                    </div>
+                    <div class="exercise-item">
+                      <p>30 Pushups</p>
+                      <p><span>10</span> Min</p>
+                    </div>
+                  </div>
+                </div>
+            </div>
+
+            <div class="carousel-item">
+                <div class="card">
+                  <div class="card-content">
+                    <span class="card-title">Strength Workout</span>
+                    <p>
+                      To get a balanced body
+                    </p>
+                  </div>
+                  <div class="card-action">
+                    <p class="duration">Duration <span>7 days</span></p>
+                    <p class="date">Start Date <span>Mar. 14th. 2020</span></p>
+                    <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
+                  </div>
+                  <div class="card-action" id="exercise">
+                    <h6>Exercise</h6>
+                    <div class="exercise-item">
+                      <p>50 Tricep Dips</p>
+                      <p><span>15</span> Min</p>
+                    </div>
+                    <div class="exercise-item">
+                      <p>30 Pushups</p>
+                      <p><span>10</span> Min</p>
+                    </div>
+                  </div>
+                </div>
+            </div>
+
+            <div class="carousel-item">
+                <div class="card">
+                  <div class="card-content">
+                    <span class="card-title">Strength Workout</span>
+                    <p>
+                      To get a balanced body
+                    </p>
+                  </div>
+                  <div class="card-action">
+                    <p class="duration">Duration <span>7 days</span></p>
+                    <p class="date">Start Date <span>Mar. 14th. 2020</span></p>
+                    <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
+                  </div>
+                  <div class="card-action" id="exercise">
+                    <h6>Exercise</h6>
+                    <div class="exercise-item">
+                      <p>50 Tricep Dips</p>
+                      <p><span>15</span> Min</p>
+                    </div>
+                    <div class="exercise-item">
+                      <p>30 Pushups</p>
+                      <p><span>10</span> Min</p>
+                    </div>
+                  </div>
+                </div>
+            </div>
+
+        </div>
+      </section>
+    </main>
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="/index.js"></script>
   </body>
 </html>
