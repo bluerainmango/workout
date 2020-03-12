@@ -1,7 +1,7 @@
 const Plan = require("../models/planModel");
 
 exports.getAllPlans = async (req, res, next) => {
-  const plans = await Plan.find();
+  const plans = await Plan.find().sort("-createdAt");
   console.log("🍑", plans);
 
   res.status(200).json({

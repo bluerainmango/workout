@@ -7,12 +7,11 @@ const planSchema = new mongoose.Schema(
       required: [true, "A plan must have a name"],
       trim: true,
       maxlength: [30, "A plan name must have less or equal than 30 characters"],
-      minlength: [3, "A plan name must have at least 3 characters"],
-      unique: [true, "A plan name should be unique"]
+      minlength: [3, "A plan name must have at least 3 characters"]
+      // unique: [true, "A plan name should be unique"]
     },
     duration: {
-      type: Number,
-      required: [true, "A plan must have a duration"]
+      type: Number
     },
     description: {
       type: String,
@@ -21,8 +20,16 @@ const planSchema = new mongoose.Schema(
     startDate: {
       type: Date
     }
+    // createdAt: {
+    //   type: Date,
+    //   default: Date.now()
+    // }
   },
-  { toJSON: { virtuals: true }, toObject: { virtuals: true } }
+  {
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
+    timestamps: { createdAt: "createdAt" }
+  }
 );
 
 // Virtual Referencing to exercise
