@@ -17,13 +17,13 @@ if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
 
+// API routers
+app.use("/api/plans", planRouter);
+app.use("/api/exercises", exerciseRouter);
+
 // View router
 app.use("/", (req, res) => {
   res.status(200).send("index.html");
 });
-
-// API routers
-app.use("/api/plans", planRouter);
-app.use("/api/exercises", exerciseRouter);
 
 module.exports = app;
