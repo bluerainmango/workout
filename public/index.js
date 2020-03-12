@@ -11,38 +11,41 @@ $(document).ready(function() {
   };
 
   const init = async () => {
-    const plans = await axios.get("/api/plans");
+    const result = await axios.get("/api/plans");
+    const plans = result.data.data;
 
-    const plan = plans.data.data[1];
-    console.log("🥥 plnas", plan);
+    const cardsHTML = plans.reduce((acc, plan, i, arr) => {
+      const exerciseHTML = plan.exercise.reduce(
+        (acc, workout) =>
+          acc +
+          `<div class="exercise-item"><p>${workout.exerciseName} <span>${workout.duration}</span> Min</p></div>`,
+        ""
+      );
 
-    const cardHTML = `
-    <div class="carousel-item">
-        <div class="card">
-          <div class="card-content">
-            <span class="card-title">${plan.planName}</span>
-            <p>
-              ${plan.description}
-            </p>
-          </div>
-          <div class="card-action">
-            <p class="duration">Duration <span>${plan.duration} days</span></p>
-            <p class="date">Start Date <span>${plan.starDate}</span></p>
-            <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
-          </div>
-          <div class="card-action" id="exercise">
-            <h6>Exercise</h6>
-            <div class="exercise-item">
-              <p>50 Tricep Dips <span>15</span> Min</p>
+      const cardTemplate = `
+        <div class="carousel-item">
+            <div class="card">
+              <div class="card-content">
+                <span class="card-title">${plan.planName}</span>
+                <p>
+                  ${plan.description}
+                </p>
+              </div>
+              <div class="card-action">
+                <p class="duration">Duration <span>${plan.duration} days</span></p>
+                <p class="date">Start Date <span>${plan.starDate}</span></p>
+                <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
+              </div>
+              <div class="card-action" id="exercise">
+               ${exerciseHTML}
+              </div>
             </div>
-            <div class="exercise-item">
-              <p>30 Pushups <span>10</span> Min</p>
-            </div>
-          </div>
-        </div>
-    </div>`;
+        </div>`;
 
-    $(".carousel").append(cardHTML);
+      return acc + cardTemplate;
+    }, "");
+
+    $(".carousel").append(cardsHTML);
     initCarousel();
   };
 
