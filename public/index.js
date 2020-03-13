@@ -57,7 +57,7 @@ $(document).ready(function() {
                   <div class="card-action">
                     <p class="duration">Duration <span>${plan.duration} days</span></p>
                     <p class="date">Start Date <span>${plan.starDate}</span></p>
-                    <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
+                    <a class="btn-floating halfway-fab waves-effect waves-light deep-purple lighten-3"><i class="material-icons ">add</i></a>
                   </div>
                   <div class="card-action" id="exercise">
                    ${exerciseHTML}

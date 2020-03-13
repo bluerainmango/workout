@@ -23,24 +23,24 @@
             
             <div class="row">
               <div class="input-field">
-                <input id="planName" type="text" required />
+                <input id="planName" type="text"  required />
                 <label for="planName">Plan name</label>
               </div>
             </div>
             <div class="row">
               <div class="input-field">
-                <input id="duration" type="text" />
-                <label for="duration">Duration</label>
+                <input id="duration" type="number" class="validate" />
+                <label for="duration">Duration(minutes)</label>
               </div>
             </div>
             <div class="row">
               <div class="input-field">
-                <input id="description" type="text" />
+                <textarea id="description" class="materialize-textarea"></textarea>
                 <label for="description">Description</label>
               </div>
             </div>
 
-            <button class="waves-effect waves-light btn">Add</button>
+            <button class="waves-effect waves-light btn deep-purple">Add</button>
           </form>
         </section>
 

@@ -10,7 +10,7 @@
   color: #fff;
 }
 html {
-  font-size: 62.5%;
+  font-size: 80%;
   font-weight: 300;
   font-family: "Lato", "Arial", sans-serif;
   text-rendering: optimizeLegibility;
@@ -62,6 +62,17 @@ form {
   display: flex;
   flex-direction: column;
   /* border: red 1px solid; */
+}
+/* label focus color */
+.input-field input:focus + label,
+.input-field .materialize-textarea:focus + label {
+  color: #5711e1 !important;
+}
+/* label underline focus color */
+.input-field input:focus,
+.input-field .materialize-textarea:focus {
+  border-bottom: 1px solid #5711e1 !important;
+  box-shadow: 0 1px 0 0 #5711e1 !important;
 }
 
 .carousel {
