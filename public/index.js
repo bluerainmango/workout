@@ -2,8 +2,6 @@ $(document).ready(function() {
   $("form").submit(addPlanBtnHandler);
   init();
 
-  var instance = "";
-
   async function addPlanBtnHandler(e) {
     e.preventDefault();
     console.log("clicked");
@@ -29,6 +27,7 @@ $(document).ready(function() {
   }
 
   function init() {
+    $(".modal").modal({ preventScrolling: true });
     renderCarousel();
   }
 
@@ -36,17 +35,20 @@ $(document).ready(function() {
     const result = await axios.get("/api/plans");
     const plans = result.data.data;
 
+    //* Create Carousel HTML
     const cardsHTML = plans.reduce((acc, plan) => {
-      // Create excercise HTML
+      // 1. Create Excercise HTML
       const exerciseHTML = plan.exercise.reduce(
         (acc, workout) =>
           acc +
-          `<div class="exercise-item"><p>${workout.exerciseName} <span>${workout.duration}</span> Min</p></div>`,
+          `<div class="exercise-item"><p>${workout.exerciseName ||
+            ""} <span>${workout.duration || ""}</span> Min</p></div>`,
         ""
       );
 
+      // 2. Create Card HTML
       const cardTemplate = `
-            <div class="carousel-item">
+            <div class="carousel-item" id="${plan.id}">
                 <div class="card">
                   <div class="card-content">
                     <span class="card-title">${plan.planName}</span>
@@ -55,13 +57,16 @@ $(document).ready(function() {
                     </p>
                   </div>
                   <div class="card-action">
-                    <p class="duration">Duration <span>${plan.duration} days</span></p>
-                    <p class="date">Start Date <span>${plan.starDate}</span></p>
-                    <a class="btn-floating halfway-fab waves-effect waves-light deep-purple lighten-3"><i class="material-icons ">add</i></a>
+                  <p class="date">Start Date: <span>${plan.starDate ||
+                    ""}</span></p>
+                    <p class="duration">Duration: <span>${plan.duration ||
+                      ""}</span></p>
+                    <a class="btn-floating halfway-fab waves-effect waves-light deep-purple lighten-3 modal-trigger" href="#modal1""><i class="material-icons">add</i></a>
                   </div>
                   <div class="card-action" id="exercise">
                    ${exerciseHTML}
                   </div>
+                  
                 </div>
             </div>`;
 
@@ -78,19 +83,13 @@ $(document).ready(function() {
   }
 
   function initCarousel() {
-    // if (instance.el) {
-    //   instance.destroy();
-    // }
     $(".carousel").carousel({
       padding: 10,
-      indicators: true,
+      //   indicators: true,
       // noWrap: true,
       dist: 0,
       numVisible: 3,
       shift: 10
     });
-
-    // ca = document.getElementsByClassName("carousel");
-    // instance = M.Carousel.getInstance(ca);
   }
 });

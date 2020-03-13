@@ -23,7 +23,7 @@
             
             <div class="row">
               <div class="input-field">
-                <input id="planName" type="text"  required />
+                <input id="planName" type="text" required />
                 <label for="planName">Plan name</label>
               </div>
             </div>
@@ -51,6 +51,30 @@
         </section>
 
     </main>
+
+    <div id="modal1" class="modal">
+      <div class="modal-content">
+        <a href="#!" class="modal-close btn-flat right">X</a>
+        <h4>New Exercise</h4>
+        
+        <form class="form" id="form">
+          <div class="row container">
+              <div class="input-field">
+                <input id="exerciseName" type="text" required />
+                <label for="exerciseName">Exercise Name</label>
+              </div>
+          </div>
+          <div class="row container">
+            <div class="input-field">
+              <input id="exerciseDuration" type="number" class="validate" />
+              <label for="exerciseDuration">Duration(minutes)</label>
+            </div>
+          </div>
+          <button class="waves-effect waves-light btn deep-purple lighten-1 container">Add</button>
+        </form>
+      </div>
+    </div>
+
     <!-- Compiled and minified JavaScript -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>

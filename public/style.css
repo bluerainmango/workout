@@ -63,6 +63,9 @@ form {
   flex-direction: column;
   /* border: red 1px solid; */
 }
+.input-field {
+  margin: 0;
+}
 /* label focus color */
 .input-field input:focus + label,
 .input-field .materialize-textarea:focus + label {
@@ -70,7 +73,8 @@ form {
 }
 /* label underline focus color */
 .input-field input:focus,
-.input-field .materialize-textarea:focus {
+.input-field .materialize-textarea:focus,
+input.valid {
   border-bottom: 1px solid #5711e1 !important;
   box-shadow: 0 1px 0 0 #5711e1 !important;
 }
@@ -93,4 +97,24 @@ form {
   .plan__old {
     width: 100%;
   }
+}
+
+.modal {
+  max-width: 40rem;
+}
+.modal h4 {
+  margin-bottom: 2rem;
+}
+.modal-close {
+  font-size: 2rem;
+}
+.modal .input-field {
+  /* min-width: 15rem; */
+  /* text-align: center; */
+  width: 100%;
+  /* margin: 0 2rem; */
+}
+
+.modal button {
+  margin-top: 2rem;
 }
