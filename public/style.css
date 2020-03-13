@@ -22,9 +22,7 @@ body {
   padding: 3rem;
   max-width: 100rem;
   display: flex;
-  /* flex-direction: column; */
   margin: 0 auto;
-  /* align-items: center; */
 }
 
 main {
@@ -32,8 +30,6 @@ main {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  /* flex-direction: column; */
-  /* align-items: center; */
 }
 
 .title {
@@ -63,14 +59,17 @@ form {
   flex-direction: column;
   /* border: red 1px solid; */
 }
+
 .input-field {
   margin: 0;
 }
+
 /* label focus color */
 .input-field input:focus + label,
 .input-field .materialize-textarea:focus + label {
   color: #5711e1 !important;
 }
+
 /* label underline focus color */
 .input-field input:focus,
 .input-field .materialize-textarea:focus,
@@ -80,7 +79,7 @@ input.valid {
 }
 
 .carousel {
-  overflow: none;
+  overflow: visible !important;
   /* height: 100%; */
 }
 
@@ -102,19 +101,69 @@ input.valid {
 .modal {
   max-width: 40rem;
 }
-.modal h4 {
-  margin-bottom: 2rem;
-}
+
 .modal-close {
   font-size: 2rem;
 }
+
 .modal .input-field {
-  /* min-width: 15rem; */
-  /* text-align: center; */
   width: 100%;
-  /* margin: 0 2rem; */
 }
 
 .modal button {
-  margin-top: 2rem;
+  margin: 3.5rem auto;
+}
+
+.newlyAdded::after {
+  content: "Added!";
+  color: #5711e1;
+  font-size: 1.5rem;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.bgcolor {
+  background-color: #4100c2;
+  color: #fff;
+}
+@keyframes newlyAdded {
+  0% {
+    left: 0;
+  }
+
+  28% {
+    left: -5rem;
+    background-color: #4100c2;
+    color: #fff;
+  }
+
+  100% {
+    left: 0;
+    background-color: #fff;
+    color: initial;
+  }
+}
+
+@keyframes newlyAdded2 {
+  0% {
+    opacity: 0;
+    color: #fff;
+    transform: translateX(50%);
+  }
+
+  28% {
+    background-color: #4100c2;
+  }
+
+  60% {
+    color: #fff;
+  }
+
+  100% {
+    opacity: 1;
+    color: initial;
+    background-color: #fff;
+    transform: translateX(0%);
+  }
 }

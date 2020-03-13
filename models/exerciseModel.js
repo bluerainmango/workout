@@ -11,7 +11,7 @@ const ExerciseSchema = new mongoose.Schema(
         30,
         "A exercise name must have less or equal than 30 characters"
       ],
-      minlength: [3, "A exercise name must have at least 10 characters"]
+      minlength: [3, "A exercise name must have at least 3 characters"]
     },
     duration: {
       type: Number,
