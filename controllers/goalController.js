@@ -1,11 +1,21 @@
 const Goal = require("../models/goalModel");
 
-exports.getGoalsController = (req, res, next) => {
-  const goals = Goal.find();
+exports.getAllGoals = async (req, res, next) => {
+  const goals = await Goal.find();
 
   res.status(200).json({
     status: "success",
     message: "Succesfully got all goals",
     data: goals
+  });
+};
+
+exports.createGoal = async (req, res, next) => {
+  const newGoal = await Goal.create(req.body);
+
+  res.status(201).json({
+    status: "success",
+    message: "Succesfully created the new goal",
+    data: newGoal
   });
 };

@@ -14,13 +14,15 @@
   </head>
   <body>
     <header><h3>Daily Workout Planner</h3></header>
-    <p class="header-p">Choose today's workout plan and keep track your daily workout progress!</p>
-    <main id="d">
+    <p class="header-p m-bottom">Choose today's workout plan and keep track your daily workout progress!</p>
+    
+    <main>
 
+       <div class="plan-container">
+        <p class="header-p center">1. Pick today's plan</p>
         <section class="plan__new">
           <p class="title">New Plan</p>
           <form class="form" id="form--plan">
-            <!-- <div class="row"><p class="title">New Plan</p></div> -->
             
             <div class="row">
               <div class="input-field">
@@ -48,10 +50,21 @@
         <section class="plan__old">
             <p class="title">Previous Plans</p>
             <div class="carousel">
-
         </section>
+      </div>
+      
+      
+      <section class="goal-container">
+          <p class="header-p center">2. Check progress</p>
+          <!-- <p class="title">Records</p> -->
+          <ul class="collection goals">
 
+          </ul>
+        </section>
     </main>
+
+
+    
 
     <div id="modal1" class="modal">
       <div class="modal-content">

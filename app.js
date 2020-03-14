@@ -21,7 +21,7 @@ if (process.env.NODE_ENV === "development") {
 // API routers
 app.use("/api/plans", planRouter);
 app.use("/api/exercises", exerciseRouter);
-app.use("api/goals", goalRouter);
+app.use("/api/goals", goalRouter);
 
 // View router
 app.use("/", (req, res) => {

@@ -8,6 +8,7 @@ $(document).ready(function() {
   async function init() {
     // 1. Render carousel
     await renderCarousel();
+    await renderGoal();
 
     // 2. Add event handlers
     $("#form--plan").submit(addPlanBtnHandler);
@@ -20,6 +21,11 @@ $(document).ready(function() {
 
   async function setGoalHandler(e) {
     e.preventDefault();
+
+    const goalHTML = `<label>
+      <input type="checkbox" class="exercise-item" />
+      <span>${exerciseName || ""} (${exerciseDuration || ""} min)</span>
+    </label>`;
   }
   async function addPlanBtnHandler(e) {
     e.preventDefault();
@@ -68,10 +74,9 @@ $(document).ready(function() {
     const exerciseDOM = $(`#${id} .exercise`);
     exerciseDOM
       .append(
-        `<label>
-          <input type="checkbox" class="exercise-item" />
+        `<p>
           <span>${exerciseName || ""} (${exerciseDuration || ""} min)</span>
-        </label>`
+        </p>`
       )
       .children()
       .last()
@@ -85,6 +90,40 @@ $(document).ready(function() {
     $(".modal").modal("close");
   }
 
+  async function renderGoal() {
+    const result = await axios.get("/api/goals");
+    const goals = result.data.data;
+
+    console.log(goals);
+
+    const goalsHTML = goals.reduce((acc, goal) => {
+      console.log(goal.plan.exercise);
+
+      //  `<input type="checkbox" class="goal-item-exercise">${exercise.exerciseName} | ${exercise.duration} </input>`
+
+      const exercisesHTML = goal.plan.exercise.reduce((acc, exercise) => {
+        return (
+          acc +
+          `<div><label><input type="checkbox" class="goal-item-exercise" />
+            <span>${exercise.exerciseName || ""} (${exercise.duration ||
+            ""} min)</span>
+          </label></div>`
+        );
+      }, "");
+
+      const goalHTML = `<li class="collection-item goal-item" id="${goal.id}">
+        <span>${goal.plan.planName}</span>
+        <span>${goal.isComplished ? "Complete" : "Incomplete"}</span>
+        <div>${exercisesHTML}</div>
+     </li>`;
+
+      return acc + goalHTML;
+    }, "");
+
+    $(".goals")
+      .empty()
+      .append(goalsHTML);
+  }
   async function renderCarousel() {
     // 1. Get plans from DB
     const result = await axios.get("/api/plans");
@@ -96,11 +135,10 @@ $(document).ready(function() {
       const exerciseHTML = plan.exercise.reduce(
         (acc, workout) =>
           acc +
-          `<label>
-            <input type="checkbox" class="exercise-item" />
+          `<p>
             <span>${workout.exerciseName || ""} (${workout.duration ||
             ""} min)</span>
-          </label>`,
+          </p>`,
         ""
       );
 
@@ -142,9 +180,9 @@ $(document).ready(function() {
     $(".carousel").carousel({
       padding: 10,
       //   indicators: true,
-      noWrap: true,
+      noWrap: false,
       dist: 0,
-      numVisible: 4,
+      numVisible: 3,
       shift: 10
     });
 

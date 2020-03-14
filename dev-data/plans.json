@@ -3,30 +3,30 @@
         "_id": "5e694ceb35fc3f6c9c9e9209",
         "planName": "Strength Workout",
         "duration": 7,
-        "description": "To get a balanced body",
+        "description": "To get a balanced body"
     },
     {
         "_id": "5e694ceb35fc3f6c9c9e920a",
         "planName": "Cardio Intervals",
         "duration": 14,
-        "description": "To loose weight",
+        "description": "To loose weight"
     },
     {
         "_id": "5e694ceb35fc3f6c9c9e920b",
         "planName": "30-Days Workout Challenge",
         "duration": 30,
-        "description": "Intensive fat burning plan",
+        "description": "Intensive fat burning plan"
     },
     {
         "_id": "5e694ceb35fc3f6c9c9e920c",
         "planName": "Home Workout",
         "duration": 5,
-        "description": "No equipment needed",
+        "description": "No equipment needed"
     },
     {
         "_id": "5e694ceb35fc3f6c9c9e920d",
         "planName": "Bulletproof Body",
         "duration": 21,
-        "description": "Total body super circuit plan",
+        "description": "Total body super circuit plan"
     }
 ]

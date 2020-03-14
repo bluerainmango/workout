@@ -4,6 +4,7 @@ require("dotenv").config();
 
 const Plan = require("../models/planModel");
 const Exercise = require("../models/exerciseModel");
+const Goal = require("../models/goalModel");
 
 mongoose
   .connect(process.env.DB_LOCAL, {
@@ -21,6 +22,7 @@ const plans = JSON.parse(fs.readFileSync(`${__dirname}/plans.json`, "utf-8"));
 const exercises = JSON.parse(
   fs.readFileSync(`${__dirname}/exercises.json`, "utf-8")
 );
+const goals = JSON.parse(fs.readFileSync(`${__dirname}/goals.json`, "utf-8"));
 
 // IMPORT DATA INTO DB
 // Model.create()는 인자로 배열도 받기에 아래 가능.
@@ -28,6 +30,8 @@ const importData = async () => {
   try {
     await Plan.create(plans);
     await Exercise.create(exercises);
+    await Goal.create(goals);
+
     console.log("Data successfully loaded!");
   } catch (err) {
     console.log(err);
@@ -41,6 +45,8 @@ const deleteData = async () => {
     // Model.deleteMany() : 인자 없으면 모든 documents 삭제. mongoDB와 mongoose 같은 이름
     await Plan.deleteMany();
     await Exercise.deleteMany();
+    await Goal.deleteMany();
+
     console.log("Data successfully deleted!");
   } catch (err) {
     console.log(err);
