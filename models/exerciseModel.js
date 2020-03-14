@@ -6,7 +6,6 @@ const ExerciseSchema = new mongoose.Schema(
       type: String,
       required: [true, "A exercise must have a name"],
       trim: true,
-      unique: true,
       maxlength: [
         30,
         "A exercise name must have less or equal than 30 characters"

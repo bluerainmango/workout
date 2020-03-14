@@ -1,63 +1,60 @@
 $(document).ready(function() {
-  $("#form--plan").submit(addPlanBtnHandler);
-  $("#form--exercise").submit(addExerciseHandler);
-
   init();
 
   async function addPlanBtnHandler(e) {
     e.preventDefault();
 
+    // 1. Get values
     const planName = $("#planName").val();
     const duration = $("#duration").val();
     const description = $("#description").val();
 
-    console.log(planName, duration, description);
-
+    // 2. Add new plan to DB
     await axios.post("/api/plans", {
       planName,
       duration,
       description
     });
 
-    const lastIndex = await renderCarousel(true);
-    console.log("🍏", lastIndex);
-    // $(".carousel").carousel("next", lastIndex);
-    // $(".carousel").carousel("prev");
-    // $(".carousel").carousel("set", lastIndex);
-    // location.reload();
+    // 3. Rerender carousel
+    await renderCarousel(true);
 
+    // 4. Execute carousel animation
     cardAnimation();
+
+    $("input,textarea,label")
+      .val("")
+      .removeClass("active valid");
   }
 
   async function addExerciseHandler(e) {
     e.preventDefault();
 
-    // Get values
+    // 1. Get values
     const exerciseName = $("#exerciseName").val();
     const exerciseDuration = $("#exerciseDuration").val();
 
-    // Get plan's id to add an exercise to
+    // 2. Get plan's id to add an exercise to
     const id = $(".carousel-item.active").attr("id");
 
-    console.log(exerciseName, exerciseDuration, id);
-
-    // Create new exercise to DB
+    // 3. Create new exercise to DB
     await axios.post("/api/exercises", {
       exerciseName,
       duration: exerciseDuration,
       plan: id
     });
 
-    console.log($(`#${id} #exercise`));
-
-    // Add new exercise to the plan DOM
+    // 4. Add new exercise HTML & animation to the plan DOM
     $(`#${id} #exercise`)
       .append(
-        `<div class="exercise-item"><p>${exerciseName ||
-          ""} <span>(${exerciseDuration || ""}</span> min)</p></div>`
+        `<label>
+          <input type="checkbox" class="exercise-item" />
+          <span>${exerciseName || ""} (${exerciseDuration || ""} min)</span>
+        </label>`
       )
       .children()
       .last()
+      .find("span")
       .css({ animation: "newlyAdded2 .6s" });
 
     // Close modal
@@ -65,26 +62,37 @@ $(document).ready(function() {
   }
 
   async function init() {
-    $(".modal").modal({ preventScrolling: true });
+    // 1. Render carousel
     await renderCarousel();
+
+    // 2. Add event handlers
+    $("#form--plan").submit(addPlanBtnHandler);
+    $("#form--exercise").submit(addExerciseHandler);
+
+    // 3. Init modal
+    $(".modal").modal({ preventScrolling: true });
   }
 
-  async function renderCarousel(isNew = false) {
+  async function renderCarousel() {
+    // 1. Get plans from DB
     const result = await axios.get("/api/plans");
     const plans = result.data.data;
 
-    //* Create Carousel HTML
+    // 2. Create Carousel HTML
     const cardsHTML = plans.reduce((acc, plan) => {
-      // 1. Create Excercise HTML
+      // 2.1 Create Excercise HTML
       const exerciseHTML = plan.exercise.reduce(
         (acc, workout) =>
           acc +
-          `<div class="exercise-item"><p>${workout.exerciseName ||
-            ""} <span>(${workout.duration || ""}</span> min)</p></div>`,
+          `<label>
+            <input type="checkbox" class="exercise-item" />
+            <span>${workout.exerciseName || ""} (${workout.duration ||
+            ""} min)</span>
+          </label>`,
         ""
       );
 
-      // 2. Create Card HTML
+      // 2.2 Create Card HTML
       const cardTemplate = `
             <div class="carousel-item" id="${plan.id}">
                 <div class="card">
@@ -95,9 +103,7 @@ $(document).ready(function() {
                     </p>
                   </div>
                   <div class="card-action">
-                  <p class="date">Start Date: <span>${plan.starDate ||
-                    ""}</span></p>
-                    <p class="duration">Duration: <span>${plan.duration ||
+                    <p class="duration">Duration(min): <span>${plan.duration ||
                       ""}</span></p>
                     <a class="btn-floating halfway-fab waves-effect waves-light deep-purple lighten-3 modal-trigger" href="#modal1""><i class="material-icons">add</i></a>
                   </div>
@@ -110,10 +116,12 @@ $(document).ready(function() {
       return acc + cardTemplate;
     }, "");
 
+    // 3. Add carousel HTML to DOM
     $(".carousel")
       .empty()
       .append(cardsHTML);
 
+    // 4. Init carousel
     initCarousel();
   }
 
@@ -131,7 +139,7 @@ $(document).ready(function() {
   }
 
   function cardAnimation() {
-    const newlyAdded = $(".carousel-item:first .card").css({
+    $(".carousel-item:first .card").css({
       //   transition: "transform 1s cubic-bezier(0,1.68,1,1.43)",
       animation: "newlyAdded 1s"
     });
