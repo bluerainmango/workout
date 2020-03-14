@@ -6,14 +6,14 @@ $(document).ready(function() {
   init();
 
   async function init() {
-    // 1. Render carousel
+    // 1. Render page
     await renderCarousel();
     await renderGoal();
 
     // 2. Add event handlers
     $("#form--plan").submit(addPlanBtnHandler);
     $("#form--exercise").submit(addExerciseHandler);
-    $("#setGoalBtn").click(setGoalHandler);
+    $(".setGoalBtn").click(setGoalHandler);
 
     // 3. Init modal
     $(".modal").modal({ preventScrolling: true });
@@ -22,11 +22,39 @@ $(document).ready(function() {
   async function setGoalHandler(e) {
     e.preventDefault();
 
-    const goalHTML = `<label>
-      <input type="checkbox" class="exercise-item" />
-      <span>${exerciseName || ""} (${exerciseDuration || ""} min)</span>
-    </label>`;
+    const planId = $(".carousel-item.active").attr("id");
+    console.log("😗 goal seter clicked", planId);
+
+    // Save new goal to DB
+    const goalInfo = await axios.post("/api/goals", { plan: planId });
+    const { isComplished, plan, id } = goalInfo.data.data;
+
+    console.log("😍", goalInfo);
+
+    //get this goal's plan info
+    const planInfo = await axios.get(`/api/plans/${planId}`);
+    const { planName, duration, exercise } = planInfo.data.data;
+
+    console.log("😇", planInfo, planName, duration, exercise);
+
+    const exercisesHTML = exercise.reduce((acc, el) => {
+      return (
+        acc +
+        `<div><label><input type="checkbox" class="goal-item-exercise" />
+        <span>${el.exerciseName || ""} (${el.duration || ""} min)</span>
+      </label></div>`
+      );
+    }, "");
+
+    const goalHTML = `<li class="collection-item goal-item" id="${id}">
+    <span>${planName}</span>
+    <span>${isComplished ? "Complete" : "Incomplete"}</span>
+    <div>${exercisesHTML}</div>
+ </li>`;
+
+    $(".goals").prepend(goalHTML);
   }
+
   async function addPlanBtnHandler(e) {
     e.preventDefault();
 
@@ -124,6 +152,7 @@ $(document).ready(function() {
       .empty()
       .append(goalsHTML);
   }
+
   async function renderCarousel() {
     // 1. Get plans from DB
     const result = await axios.get("/api/plans");

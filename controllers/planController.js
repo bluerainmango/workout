@@ -27,3 +27,16 @@ exports.createPlan = async (req, res, next) => {
     data: doc
   });
 };
+
+exports.getOnePlan = async (req, res, next) => {
+  console.log("😛");
+  const { planId } = req.params;
+  const plan = await Plan.findById(planId);
+
+  console.log("😅", planId);
+  res.status(200).json({
+    status: "success",
+    message: "Succesfully got the reqeusted plan",
+    data: plan
+  });
+};

@@ -31,6 +31,12 @@ goalSchema.pre(/^find/, function(next) {
   next();
 });
 
+goalSchema.post(/^create/, function(next) {
+  this.populate({ path: "plan" });
+
+  next();
+});
+
 const Goal = mongoose.model("Goal", goalSchema);
 
 module.exports = Goal;

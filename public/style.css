@@ -105,7 +105,7 @@ form {
 .row {
   margin-bottom: 0 !important;
 }
-.input-field {
+#form--plan .input-field {
   margin: 0;
 }
 
