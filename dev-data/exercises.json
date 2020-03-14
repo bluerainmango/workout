@@ -1,5 +1,6 @@
 [
     {
+        "_id": "5e6b746022b63ae2d838719e",
         "exerciseName": "50 Tricep Dips",
         "duration": 15,
         "plan": [
@@ -9,6 +10,7 @@
         ]
     },
     {
+        "_id": "5e6b746022b63ae2d838719f",
         "exerciseName": "30 Pushups",
         "duration": 10,
         "plan": [
@@ -17,6 +19,7 @@
         ]
     },
     {
+        "_id": "5e6b746022b63ae2d83871a0",
         "exerciseName": "60 Sit-ups",
         "duration": 20,
         "plan": [
@@ -25,6 +28,7 @@
         ]
     },
     {
+        "_id": "5e6b746022b63ae2d83871a1",
         "exerciseName": "40 Squats",
         "duration": 15,
         "plan": [
@@ -33,6 +37,7 @@
         ]
     },
     {
+        "_id": "5e6b746022b63ae2d83871a2",
         "exerciseName": "Floor plank",
         "duration": 1,
         "plan": [
@@ -42,6 +47,7 @@
         ]
     },
     {
+        "_id": "5e6b746022b63ae2d83871a3",
         "exerciseName": "Walk 10,000 steps",
         "duration": 30,
         "plan": [
@@ -49,6 +55,7 @@
         ]
     },
     {
+        "_id": "5e6b746022b63ae2d83871a4",
         "exerciseName": "Running",
         "duration": 20,
         "plan": [
@@ -58,6 +65,7 @@
         ]
     },
     {
+        "_id": "5e6b746022b63ae2d83871a5",
         "exerciseName": "Fast walking",
         "duration": 30,
         "plan": [

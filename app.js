@@ -5,6 +5,7 @@ const morgan = require("morgan");
 // Import Routers
 const planRouter = require("./routes/planRoutes");
 const exerciseRouter = require("./routes/exerciseRoutes");
+const goalRouter = require("./routes/goalRoutes");
 
 const app = express();
 
@@ -20,6 +21,7 @@ if (process.env.NODE_ENV === "development") {
 // API routers
 app.use("/api/plans", planRouter);
 app.use("/api/exercises", exerciseRouter);
+app.use("api/goals", goalRouter);
 
 // View router
 app.use("/", (req, res) => {

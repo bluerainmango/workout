@@ -1,6 +1,26 @@
 $(document).ready(function() {
+  const setGoalBtn = `<div class="card-action setGoalBtn">
+    <a class="waves-effect waves-light btn-small deep-purple darken-1"><i class="material-icons right">flag</i>Set goal</a>
+  </div>`;
+
   init();
 
+  async function init() {
+    // 1. Render carousel
+    await renderCarousel();
+
+    // 2. Add event handlers
+    $("#form--plan").submit(addPlanBtnHandler);
+    $("#form--exercise").submit(addExerciseHandler);
+    $("#setGoalBtn").click(setGoalHandler);
+
+    // 3. Init modal
+    $(".modal").modal({ preventScrolling: true });
+  }
+
+  async function setGoalHandler(e) {
+    e.preventDefault();
+  }
   async function addPlanBtnHandler(e) {
     e.preventDefault();
 
@@ -45,7 +65,8 @@ $(document).ready(function() {
     });
 
     // 4. Add new exercise HTML & animation to the plan DOM
-    $(`#${id} #exercise`)
+    const exerciseDOM = $(`#${id} .exercise`);
+    exerciseDOM
       .append(
         `<label>
           <input type="checkbox" class="exercise-item" />
@@ -57,20 +78,11 @@ $(document).ready(function() {
       .find("span")
       .css({ animation: "newlyAdded2 .6s" });
 
+    // 5. Add set goal BTN if it doesn't exist
+    if ($(`#${id} .setGoalBtn`).length === 0) exerciseDOM.after(setGoalBtn);
+
     // Close modal
     $(".modal").modal("close");
-  }
-
-  async function init() {
-    // 1. Render carousel
-    await renderCarousel();
-
-    // 2. Add event handlers
-    $("#form--plan").submit(addPlanBtnHandler);
-    $("#form--exercise").submit(addExerciseHandler);
-
-    // 3. Init modal
-    $(".modal").modal({ preventScrolling: true });
   }
 
   async function renderCarousel() {
@@ -105,11 +117,12 @@ $(document).ready(function() {
                   <div class="card-action">
                     <p class="duration">Duration(min): <span>${plan.duration ||
                       ""}</span></p>
-                    <a class="btn-floating halfway-fab waves-effect waves-light deep-purple lighten-3 modal-trigger" href="#modal1""><i class="material-icons">add</i></a>
+                    <a class="btn-floating halfway-fab waves-effect waves-light deep-purple lighten-2 modal-trigger" href="#modal1""><i class="material-icons">add</i></a>
                   </div>
-                  <div class="card-action" id="exercise">
+                  <div class="card-action exercise">
                    ${exerciseHTML}
                   </div>
+                  ${plan.exercise.length > 0 ? setGoalBtn : ""}
                 </div>
             </div>`;
 

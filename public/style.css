@@ -184,3 +184,14 @@ input[type="checkbox"] + span {
 [type="checkbox"]:not(:checked) + span::before {
   border: 1px solid #5a5a5a !important;
 }
+.setGoalBtn {
+  /* margin-top: 1rem; */
+  border-top: none !important;
+}
+/* #exercise::before {
+  content: "Exercise";
+  font-weight: bolder;
+  font-size: 1.2rem;
+  position: absolute;
+  top: -1rem;
+} */

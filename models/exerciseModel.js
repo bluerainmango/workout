@@ -26,7 +26,8 @@ const ExerciseSchema = new mongoose.Schema(
   },
   {
     toJSON: { virtuals: true },
-    toObject: { virtuals: true }
+    toObject: { virtuals: true },
+    timestamps: { createdAt: "createdAt" }
   }
 );
 
