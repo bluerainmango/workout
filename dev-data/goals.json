@@ -2,11 +2,15 @@
     {
         "isComplished": false,
         "_id": "5e6c51e2ff226111479f933b",
-        "plan": "5e694ceb35fc3f6c9c9e920d"
+        "plan": "5e694ceb35fc3f6c9c9e920d",
+        "createdAt": "2020-03-14T21:48:52.511Z",
+        "updatedAt": "2020-03-14T21:48:52.511Z"
     },
     {
         "isComplished": false,
         "_id": "5e6c5244d8cfe51193fde4c2",
-        "plan": "5e694ceb35fc3f6c9c9e920c"
+        "plan": "5e694ceb35fc3f6c9c9e920c",
+        "createdAt": "2020-03-14T21:33:45.101Z",
+        "updatedAt": "2020-03-14T21:33:45.101Z"
     }
 ]

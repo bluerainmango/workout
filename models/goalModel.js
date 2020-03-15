@@ -24,16 +24,9 @@ const goalSchema = new mongoose.Schema(
   }
 );
 
+// Populate plan info in goal doc
 goalSchema.pre(/^find/, function(next) {
-  console.log("😂 Hello");
-
   this.populate({ path: "plan", select: "planName duration exercise" });
-  next();
-});
-
-goalSchema.post(/^create/, function(next) {
-  this.populate({ path: "plan" });
-
   next();
 });
 
