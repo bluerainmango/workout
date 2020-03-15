@@ -192,7 +192,7 @@ $(document).ready(function() {
 
     //* 3. Create a new goal to DB
     const result = await axios.post("/api/goals", { plan: planId });
-
+    console.log("🐰", result);
     const newGoal = result.data.data;
 
     //* 4. Create a new goal list HTML(+ exercise checkboxes) and prepend it to DOM

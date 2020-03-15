@@ -61,6 +61,11 @@ goalSchema.pre(/^find/, function(next) {
   next();
 });
 
+goalSchema.post(/^save/, function(next) {
+  this.populate({ path: "plan", select: "planName duration exercise" });
+  // next();
+});
+
 const Goal = mongoose.model("Goal", goalSchema);
 
 module.exports = Goal;
