@@ -5,6 +5,14 @@ $(document).ready(function() {
 
   init();
 
+  async function progressChecker(e) {
+    console.log("🐽clicked");
+    const idArr = e.target.id.split("-");
+    const goalId = idArr[0];
+    const exerciseId = idArr[1];
+    console.log("🦊", goalId, exerciseId);
+  }
+
   //! Init function
   async function init() {
     //* 1. Render page
@@ -15,6 +23,7 @@ $(document).ready(function() {
     $("#form--plan").submit(addPlanBtnHandler);
     $("#form--exercise").submit(addExerciseHandler);
     $(".setGoalBtn").click(setGoalHandler);
+    $(`[type="checkbox"]`).change(progressChecker);
 
     //* 3. Init modal
     $(".modal").modal({ preventScrolling: true });
@@ -197,19 +206,29 @@ $(document).ready(function() {
   }
 
   //! Create HTML(one goal)
-  function oneGoalListHTML(id, planName, isComplished, duration, exerciseArr) {
+  function oneGoalListHTML(
+    goalId,
+    planName,
+    isComplished,
+    duration,
+    exerciseArr
+  ) {
     //* Create checkboxes for exercise
-    const exercisesHTML = exerciseArr.reduce((acc, el) => {
+    const exercisesHTML = exerciseArr.reduce((acc, exercise) => {
       return (
         acc +
-        `<div><label><input type="checkbox" class="goal-item-exercise" />
-    <span>${el.exerciseName || ""} (${el.duration || ""} min)</span>
-  </label></div>`
+        `<div class="goal-item-checkbox">
+          <label for=${goalId}-${exercise._id}>
+            <input id=${goalId}-${exercise._id} type="checkbox" />
+            <span>${exercise.exerciseName || ""} (${exercise.duration ||
+          ""} min)</span>
+          </label>
+        </div>`
       );
     }, "");
 
     //* Return HTML (goal list including exercise checkbox)
-    return `<li class="collection-item goal-item" id="${id}">
+    return `<li class="collection-item goal-item" id="${goalId}">
    <span>${planName}</span>
    <span>${duration}</span>
    <span>${isComplished ? "Complete" : "Incomplete"}</span>
