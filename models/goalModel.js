@@ -47,7 +47,7 @@ goalSchema.pre(/^save/, async function(next) {
 //! Instance method for goal doc to add a progress prop
 // format : [{id:"", isCompleted:true },{}...]
 goalSchema.methods.recordProgress = function(exerciseIdArr) {
-  this.progress = exerciseIdArr.map((exerciseId, i) => {
+  this.progress = exerciseIdArr.map(exerciseId => {
     return {
       exerciseId,
       isCompleted: false
@@ -55,15 +55,21 @@ goalSchema.methods.recordProgress = function(exerciseIdArr) {
   });
 };
 
-// Populate plan info in goal doc
+//! Populate plan info in goal doc - when querying
 goalSchema.pre(/^find/, function(next) {
   this.populate({ path: "plan", select: "planName duration exercise" });
+
   next();
 });
 
-goalSchema.post(/^save/, function(next) {
-  this.populate({ path: "plan", select: "planName duration exercise" });
-  // next();
+//! Populate plan info in goal doc - when saving(returned doc after creating etc)
+goalSchema.post(/^save/, async function(doc, next) {
+  await this.populate({
+    path: "plan",
+    select: "planName duration exercise"
+  }).execPopulate();
+
+  next();
 });
 
 const Goal = mongoose.model("Goal", goalSchema);

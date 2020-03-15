@@ -2,7 +2,6 @@ const Plan = require("../models/planModel");
 
 exports.getAllPlans = async (req, res, next) => {
   const plans = await Plan.find().sort("-createdAt");
-  console.log("🍑", plans);
 
   res.status(200).json({
     status: "success",
@@ -29,11 +28,9 @@ exports.createPlan = async (req, res, next) => {
 };
 
 exports.getOnePlan = async (req, res, next) => {
-  console.log("😛");
   const { planId } = req.params;
   const plan = await Plan.findById(planId);
 
-  console.log("😅", planId);
   res.status(200).json({
     status: "success",
     message: "Succesfully got the reqeusted plan",

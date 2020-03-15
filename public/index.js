@@ -6,11 +6,29 @@ $(document).ready(function() {
   init();
 
   async function progressChecker(e) {
-    const progressId = e.target.id;
+    const clickedProgressId = e.target.id;
+    const isChecked = e.target.checked;
     // const idArr = e.target.id.split("-");
     // const goalId = idArr[0];
     // const exerciseId = idArr[1];
-    console.log("🦊 checkbox clicked! progressID: ", progressId);
+    // console.log("🦊 checkbox clicked! progressID: ", progressId);
+
+    // const clickedGoalId = $(e.target)
+    //   .closest("li")
+    //   .attr("id");
+
+    // const clickedProgressId = $(e.target).attr("for");
+
+    console.log(
+      "🐨 clicked progress id: ",
+      clickedProgressId,
+      "checked:",
+      isChecked
+    );
+
+    await axios.patch(
+      `/api/goals/subDocId/${clickedProgressId}/isChecked/${isChecked}`
+    );
   }
 
   //! Init function
@@ -187,12 +205,12 @@ $(document).ready(function() {
     const planId = $(".carousel-item.active").attr("id");
 
     //* 2. Get this plan's info from DB
-    const planInfo = await axios.get(`/api/plans/${planId}`);
+    // const planInfo = await axios.get(`/api/plans/${planId}`);
     // const { planName, duration, exercise } = planInfo.data.data;
 
     //* 3. Create a new goal to DB
     const result = await axios.post("/api/goals", { plan: planId });
-    console.log("🐰", result);
+    // console.log("🐰", result);
     const newGoal = result.data.data;
 
     //* 4. Create a new goal list HTML(+ exercise checkboxes) and prepend it to DOM
@@ -200,6 +218,9 @@ $(document).ready(function() {
 
     //* 5. Add a new goal to DOM
     $(".goals").prepend(goalHTML);
+
+    //* 6. Add event handler
+    $(`[type="checkbox"]`).change(progressChecker);
   }
 
   //! Create HTML(one goal)
@@ -233,8 +254,6 @@ $(document).ready(function() {
 
     //* Create checkboxes for exercise
     const exercisesHTML = ultimateProgress.reduce((acc, el) => {
-      console.log("🐧", el);
-
       return (
         acc +
         `<div class="goal-item-checkbox">

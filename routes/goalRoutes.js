@@ -9,7 +9,8 @@ router
   .post(goalController.createGoal);
 
 router
-  .route("/goalId/:goalId/exerciseId/:exerciseId")
+  // .route("/goalId/:goalId/exerciseId/:exerciseId")
+  .route("/subDocId/:subDocId/isChecked/:isChecked")
   .patch(goalController.updateProgress);
 
 module.exports = router;
