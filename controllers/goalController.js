@@ -19,3 +19,31 @@ exports.createGoal = async (req, res, next) => {
     data: newGoal
   });
 };
+
+exports.updateProgress = async (req, res, next) => {
+  const { goalId, exerciseId } = req.params;
+
+  // const updatedGoal = await Goal.findByIdAndUpdate(goalId,{
+  //   progress:
+  // },{new:true});
+
+  const updatedGoal = await Goal.findByIdAndUpdate(
+    goalId,
+    { progress: req.body.progress },
+    { new: true }
+  );
+
+  console.log("🐯", req.body, updatedGoal);
+
+  // const exerciseToUpdate = goal.progress.filter(exerciseObj => {
+  //   return exerciseObj._id === exerciseId;
+  // });
+
+  // exerciseToUpdate.isCompleted ? false : true
+
+  res.status(200).json({
+    status: "success",
+    message: "Succesfully updated progress of the goal",
+    data: updatedGoal
+  });
+};

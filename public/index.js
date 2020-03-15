@@ -6,11 +6,11 @@ $(document).ready(function() {
   init();
 
   async function progressChecker(e) {
-    console.log("🐽clicked");
-    const idArr = e.target.id.split("-");
-    const goalId = idArr[0];
-    const exerciseId = idArr[1];
-    console.log("🦊", goalId, exerciseId);
+    const progressId = e.target.id;
+    // const idArr = e.target.id.split("-");
+    // const goalId = idArr[0];
+    // const exerciseId = idArr[1];
+    console.log("🦊 checkbox clicked! progressID: ", progressId);
   }
 
   //! Init function
@@ -155,19 +155,22 @@ $(document).ready(function() {
 
     //* 2. Create HTML(all goals)
     const goalsHTML = goals.reduce((acc, goal) => {
-      const {
-        id,
-        plan: { planName, duration, exercise },
-        isComplished
-      } = goal;
+      // const {
+      //   id,
+      //   plan: { planName, duration, exercise },
+      //   isComplished,
+      //   progress
+      // } = goal;
 
-      const goalHTML = oneGoalListHTML(
-        id,
-        planName,
-        isComplished,
-        duration,
-        exercise
-      );
+      // const goalHTML = oneGoalListHTML(
+      //   id,
+      //   planName,
+      //   isComplished,
+      //   duration,
+      //   progress
+      // );
+
+      const goalHTML = oneGoalListHTML(goal);
 
       return acc + goalHTML;
     }, "");
@@ -185,54 +188,72 @@ $(document).ready(function() {
 
     //* 2. Get this plan's info from DB
     const planInfo = await axios.get(`/api/plans/${planId}`);
-    const { planName, duration, exercise } = planInfo.data.data;
+    // const { planName, duration, exercise } = planInfo.data.data;
 
     //* 3. Create a new goal to DB
-    const newGoal = await axios.post("/api/goals", { plan: planId });
+    const result = await axios.post("/api/goals", { plan: planId });
 
-    const { isComplished, id } = newGoal.data.data;
+    const newGoal = result.data.data;
 
     //* 4. Create a new goal list HTML(+ exercise checkboxes) and prepend it to DOM
-    const goalHTML = oneGoalListHTML(
-      id,
-      planName,
-      isComplished,
-      duration,
-      exercise
-    );
+    const goalHTML = oneGoalListHTML(newGoal);
 
     //* 5. Add a new goal to DOM
     $(".goals").prepend(goalHTML);
   }
 
   //! Create HTML(one goal)
-  function oneGoalListHTML(
-    goalId,
-    planName,
-    isComplished,
-    duration,
-    exerciseArr
-  ) {
+  // function oneGoalListHTML(
+  //   goalId,
+  //   planName,
+  //   isComplished,
+  //   duration,
+  //   progressObj
+  // )
+  function oneGoalListHTML(goalObj) {
+    const {
+      plan: { exercise },
+      progress
+    } = goalObj;
+
+    //* Combine exercise and progress into one obj
+    const ultimateProgress = progress.map((el, i) => {
+      const workoutObj = exercise.filter(workout => {
+        return el.exerciseId === workout.id;
+      });
+
+      return {
+        exerciseName: workoutObj[0].exerciseName,
+        duration: workoutObj[0].duration,
+        ...el
+      };
+    });
+
+    // console.log("🐻", goalObj, ultimateProgress);
+
     //* Create checkboxes for exercise
-    const exercisesHTML = exerciseArr.reduce((acc, exercise) => {
+    const exercisesHTML = ultimateProgress.reduce((acc, el) => {
+      console.log("🐧", el);
+
       return (
         acc +
         `<div class="goal-item-checkbox">
-          <label for=${goalId}-${exercise._id}>
-            <input id=${goalId}-${exercise._id} type="checkbox" />
-            <span>${exercise.exerciseName || ""} (${exercise.duration ||
-          ""} min)</span>
+          <label for="${el["_id"]}">
+            <input id="${el["_id"]}" type="checkbox" ${
+          el.isCompleted ? "checked" : ""
+        }/>
+            <span>${el.exerciseName || ""} (${el.duration || ""} min)</span>
           </label>
         </div>`
       );
     }, "");
 
     //* Return HTML (goal list including exercise checkbox)
-    return `<li class="collection-item goal-item" id="${goalId}">
-   <span>${planName}</span>
-   <span>${duration}</span>
-   <span>${isComplished ? "Complete" : "Incomplete"}</span>
-   ${isComplished ? "" : exercisesHTML}
+    return `<li class="collection-item goal-item" id="${goalObj._id}">
+   <span>${goalObj.plan.planName}</span>
+   <span>${goalObj.plan.duration}</span>
+   <span>${goalObj.isComplished ? "Complete" : "Incomplete"}</span>
+   ${goalObj.isComplished ? "" : exercisesHTML}
 </li>`;
   }
 

@@ -8,4 +8,8 @@ router
   .get(goalController.getAllGoals)
   .post(goalController.createGoal);
 
+router
+  .route("/goalId/:goalId/exerciseId/:exerciseId")
+  .patch(goalController.updateProgress);
+
 module.exports = router;
