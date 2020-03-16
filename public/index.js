@@ -242,10 +242,9 @@ $(document).ready(function() {
     //* Return HTML (goal list including exercise checkbox)
     return `<li class="collection-item goal-item" id="${goalObj._id}">
    <span>${goalObj.plan.planName}</span>
-   <span>${goalObj.plan.duration}</span>
-   <span id="isAccomplished">${
-     goalObj.isAccomplished ? "Accomplished" : "Incomplete"
-   }</span>
+   <span id="isAccomplished" style="background: ${
+     goalObj.isAccomplished ? "green" : "orangered"
+   }">${goalObj.isAccomplished ? "Accomplished" : "Incomplete"}</span>
    ${exercisesHTML}
 </li>`;
   }
@@ -254,10 +253,13 @@ $(document).ready(function() {
     console.log("😧changed isAccomplished: ", isAccomplished);
 
     const word = isAccomplished ? "Accomplished" : "Incomplete";
+    const color = isAccomplished ? "green" : "orangered";
+
     $(`#${progressId}`)
       .closest("li")
       .find("#isAccomplished")
-      .text(word);
+      .text(word)
+      .css("background", color);
   }
 
   //! Init carousel(Materialize)
