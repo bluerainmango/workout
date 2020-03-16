@@ -8,16 +8,6 @@ $(document).ready(function() {
   async function progressChecker(e) {
     const clickedProgressId = e.target.id;
     const isChecked = e.target.checked;
-    // const idArr = e.target.id.split("-");
-    // const goalId = idArr[0];
-    // const exerciseId = idArr[1];
-    // console.log("🦊 checkbox clicked! progressID: ", progressId);
-
-    // const clickedGoalId = $(e.target)
-    //   .closest("li")
-    //   .attr("id");
-
-    // const clickedProgressId = $(e.target).attr("for");
 
     console.log(
       "🐨 clicked progress id: ",
@@ -26,9 +16,13 @@ $(document).ready(function() {
       isChecked
     );
 
-    await axios.patch(
+    const result = await axios.patch(
       `/api/goals/subDocId/${clickedProgressId}/isChecked/${isChecked}`
     );
+    const { isAccomplished } = result.data.data;
+    console.log("😵 updated goal: ", isAccomplished);
+
+    renderProgressResult(clickedProgressId, isAccomplished);
   }
 
   //! Init function
@@ -173,21 +167,6 @@ $(document).ready(function() {
 
     //* 2. Create HTML(all goals)
     const goalsHTML = goals.reduce((acc, goal) => {
-      // const {
-      //   id,
-      //   plan: { planName, duration, exercise },
-      //   isComplished,
-      //   progress
-      // } = goal;
-
-      // const goalHTML = oneGoalListHTML(
-      //   id,
-      //   planName,
-      //   isComplished,
-      //   duration,
-      //   progress
-      // );
-
       const goalHTML = oneGoalListHTML(goal);
 
       return acc + goalHTML;
@@ -215,7 +194,7 @@ $(document).ready(function() {
 
     //* 4. Create a new goal list HTML(+ exercise checkboxes) and prepend it to DOM
     const goalHTML = oneGoalListHTML(newGoal);
-
+    console.log("🐰", newGoal);
     //* 5. Add a new goal to DOM
     $(".goals").prepend(goalHTML);
 
@@ -224,13 +203,6 @@ $(document).ready(function() {
   }
 
   //! Create HTML(one goal)
-  // function oneGoalListHTML(
-  //   goalId,
-  //   planName,
-  //   isComplished,
-  //   duration,
-  //   progressObj
-  // )
   function oneGoalListHTML(goalObj) {
     const {
       plan: { exercise },
@@ -271,9 +243,21 @@ $(document).ready(function() {
     return `<li class="collection-item goal-item" id="${goalObj._id}">
    <span>${goalObj.plan.planName}</span>
    <span>${goalObj.plan.duration}</span>
-   <span>${goalObj.isAccomplished ? "Accomplished" : "Incomplete"}</span>
-   ${goalObj.isAccomplished ? "" : exercisesHTML}
+   <span id="isAccomplished">${
+     goalObj.isAccomplished ? "Accomplished" : "Incomplete"
+   }</span>
+   ${exercisesHTML}
 </li>`;
+  }
+
+  function renderProgressResult(progressId, isAccomplished) {
+    console.log("😧changed isAccomplished: ", isAccomplished);
+
+    const word = isAccomplished ? "Accomplished" : "Incomplete";
+    $(`#${progressId}`)
+      .closest("li")
+      .find("#isAccomplished")
+      .text(word);
   }
 
   //! Init carousel(Materialize)
