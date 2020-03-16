@@ -271,8 +271,8 @@ $(document).ready(function() {
     return `<li class="collection-item goal-item" id="${goalObj._id}">
    <span>${goalObj.plan.planName}</span>
    <span>${goalObj.plan.duration}</span>
-   <span>${goalObj.isComplished ? "Complete" : "Incomplete"}</span>
-   ${goalObj.isComplished ? "" : exercisesHTML}
+   <span>${goalObj.isAccomplished ? "Accomplished" : "Incomplete"}</span>
+   ${goalObj.isAccomplished ? "" : exercisesHTML}
 </li>`;
   }
 

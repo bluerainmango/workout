@@ -21,48 +21,32 @@ exports.createGoal = async (req, res, next) => {
 };
 
 exports.updateProgress = async (req, res, next) => {
-  // const { goalId, exerciseId } = req.params;
   const { subDocId, isChecked } = req.params;
 
-  // Goal.findOne({})
-
-  // const findGoal = await Goal.findOne({ "progress._id": subDocId });
-  console.log("🐼", isChecked);
-  const updatedGoal = await Goal.findOneAndUpdate(
-    { "progress._id": subDocId },
-    { $set: { "progress.$.isCompleted": isChecked } },
-    { new: true }
-  );
-
-  console.log("🐷", updatedGoal);
-  // const { progress } = await Goal.findById(goalId);
-
-  // const index = progress.findIndex(el => el.exerciseId === exerciseId);
-  // progress[index];
-
-  // const updatedGoal = await Goal.findByIdAndUpdate(
-  //   goalId,
-  //   {
-  //     // $set: { "progress.$[].isCompleted": true }
-  //     $set: { "progress.exerciseId": "" }
-  //   },
+  //* findOneAndUpdate() version instead of using findOne(), save()
+  // const updatedGoal = await Goal.findOneAndUpdate(
+  //   { "progress._id": subDocId },
+  //   { $set: { "progress.$.isCompleted": isChecked } },
   //   { new: true }
   // );
 
-  // const exerciseToUpdate = goal.progress.filter(exerciseObj => {
-  //   return exerciseObj._id === exerciseId;
-  // });
+  const goal = await Goal.findOne({ "progress._id": subDocId });
 
-  // exerciseToUpdate.isCompleted ? false : true
+  const index = goal.progress.findIndex(el => {
+    return el._id == subDocId;
+  });
 
-  //!
-  // const updatedGoal = await Goal.findByIdAndUpdate(
-  //   goalId,
-  //   { progress: req.body.progress },
-  //   { new: true }
-  // );
+  const progressTarget = goal.progress[index];
+  const changedProgress = Object.assign(progressTarget, {
+    isCompleted: isChecked
+  });
 
-  // console.log("🐯", req.body, updatedGoal);
+  goal.progress.set(index, changedProgress);
+
+  goal.markModified(`progress[index]`);
+  const updatedGoal = await goal.save();
+
+  console.log("🥱changed goal", updatedGoal);
 
   res.status(200).json({
     status: "success",

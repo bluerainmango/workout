@@ -12,7 +12,7 @@ const goalSchema = new mongoose.Schema(
       ref: "Plan",
       required: [true, "A daily goal must have a plan"]
     },
-    isComplished: {
+    isAccomplished: {
       type: Boolean,
       default: false,
       required: true
@@ -31,7 +31,7 @@ const goalSchema = new mongoose.Schema(
 );
 
 //! Save progress prop to doc
-goalSchema.pre(/^save/, async function(next) {
+goalSchema.pre("create", async function(next) {
   //* 1. Get exercise arr with this goal doc's plan id
   const { exercise } = await Plan.findById(this.plan);
   const exerciseIdArr = exercise.map(el => el._id);
@@ -44,8 +44,17 @@ goalSchema.pre(/^save/, async function(next) {
   next();
 });
 
+//!Instance method for goal doc to check all exercises are completed
+goalSchema.methods.checkAccomplished = function() {
+  // console.log("😡Check funci nside", this.progress);
+  const isAllAccomplished = this.progress.every(el => el.isCompleted === true);
+  // console.log("😡All accomplished: ", isAllAccomplished);
+
+  return isAllAccomplished;
+};
+
 //! Instance method for goal doc to add a progress prop
-// format : [{id:"", isCompleted:true },{}...]
+// format : [{exerciseId:"", isCompleted:true },{}...]
 goalSchema.methods.recordProgress = function(exerciseIdArr) {
   this.progress = exerciseIdArr.map(exerciseId => {
     return {
@@ -54,6 +63,24 @@ goalSchema.methods.recordProgress = function(exerciseIdArr) {
     };
   });
 };
+
+//! Post Query Hook : update isAccomplished prop
+// goalSchema.pre(/^save/, async function(next) {
+//   // console.log("😤 Pass through findOneAnd pre hook", this.model);
+
+//   // const docToUpdate = await this.model.findOne(this.getQuery());
+//   // console.log(
+//   //   "😨 docToUpdate",
+//   //   docToUpdate.isAccomplished,
+//   //   docToUpdate.checkAccomplished()
+//   // );
+//   // docToUpdate.set({ isAccomplished: docToUpdate.checkAccomplished() });
+//   console.log("🥶 is Accomplished before", this.isAccomplished);
+//   this.isAccomplished = this.checkAccomplished();
+//   console.log("🥵  is Accomplished after", this.isAccomplished);
+
+//   next();
+// });
 
 //! Populate plan info in goal doc - when querying
 goalSchema.pre(/^find/, function(next) {
