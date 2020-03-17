@@ -71,7 +71,7 @@ main {
 .plan-container {
   display: flex;
   flex-direction: column;
-  border-right: solid grey 1px;
+  border-right: solid rgb(224, 224, 224) 1px;
 }
 
 .plan-container > * {
