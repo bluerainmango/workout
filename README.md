@@ -6,6 +6,10 @@ Keep track your daily workout!
 
 👉 [Heroku](https://desolate-brushlands-16007.herokuapp.com/)
 
+### 💎 Used Skills
+
+MongoDB, Mongoose, Node.js, Express, Javascript, HTML, CSS
+
 ## 🎯 Purpose
 
 Build your own exercise plan and keep track daily workouts so that it helps achieving your fitness goal.
