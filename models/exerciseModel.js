@@ -9,12 +9,13 @@ const ExerciseSchema = new mongoose.Schema(
       maxlength: [
         30,
         "A exercise name must have less or equal than 30 characters"
-      ],
-      minlength: [3, "A exercise name must have at least 3 characters"]
+      ]
+      // minlength: [1, "A exercise name must have at least 1 character"]
     },
     duration: {
       type: Number,
-      required: [true, "a exercise must have a duration"]
+      default: 5
+      // required: [true, "a exercise must have a duration"]
     },
     plan: [
       {

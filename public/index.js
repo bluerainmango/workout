@@ -10,7 +10,6 @@ $(document).ready(function() {
     //* 2. Add event handlers
     $("#form--plan").submit(addPlanBtnHandler);
     $("#form--exercise").submit(addExerciseHandler);
-    // $(".setGoalBtn").click(setGoalHandler);
     $(`[type="checkbox"]`).change(progressChecker);
 
     //* 3. Init modal
@@ -123,7 +122,9 @@ $(document).ready(function() {
     exerciseDOM
       .append(
         `<p>
-        <span>${exerciseName || ""} (${exerciseDuration || ""} min)</span>
+        <span>${exerciseName || ""} ${
+          exerciseDuration ? "(" + exerciseDuration + "min)" : ""
+        }</span>
       </p>`
       )
       .children()
@@ -144,7 +145,10 @@ $(document).ready(function() {
   //! Render 'Set Goal' BTN
   function renderSetGoalBtn(addBtnAfterThis) {
     const setGoalBtnHTML = `<div class="card-action setGoalBtn">
-       <a class="waves-effect waves-light btn-small deep-purple darken-1"><i class="material-icons right">flag</i>Set goal</a>
+       <a class="waves-effect waves-light btn-small deep-purple darken-1">
+        <i class="material-icons right">flag</i>
+        Set goal
+       </a>
      </div>`;
 
     // If addBtnAfterThis is not given, just return HTML
@@ -179,22 +183,22 @@ $(document).ready(function() {
     //* 1. Get the clicked plan's id from DOM
     const planId = $(".carousel-item.active").attr("id");
 
-    //* 2. Get this plan's info from DB
-    // const planInfo = await axios.get(`/api/plans/${planId}`);
-    // const { planName, duration, exercise } = planInfo.data.data;
-
-    //* 3. Create a new goal to DB
+    //* 2. Create a new goal to DB
     const result = await axios.post("/api/goals", { plan: planId });
-    // console.log("🐰", result);
     const newGoal = result.data.data;
 
-    //* 4. Create a new goal list HTML(+ exercise checkboxes) and prepend it to DOM
+    //* 3. Create a new goal list HTML(+ exercise checkboxes) and prepend it to DOM
     const goalHTML = oneGoalListHTML(newGoal);
     console.log("🐰", newGoal);
-    //* 5. Add a new goal to DOM
-    $(".goals").prepend(goalHTML);
 
-    //* 6. Add event handler
+    //* 4. Add a new goal to DOM
+    $(".goals")
+      .prepend(goalHTML)
+      .children()
+      .eq(0)
+      .css({ animation: "newlyAdded .6s" });
+
+    //* 5. Add event handler
     $(`[type="checkbox"]`).change(progressChecker);
   }
 
@@ -266,15 +270,12 @@ $(document).ready(function() {
       `/api/goals/subDocId/${clickedProgressId}/isChecked/${isChecked}`
     );
     const { isAccomplished } = result.data.data;
-    console.log("😵 updated goal: ", isAccomplished);
 
     renderProgressResult(clickedProgressId, isAccomplished);
   }
 
   //! Rendering Accomplished or Incomplete mark
   function renderProgressResult(progressId, isAccomplished) {
-    console.log("😧changed isAccomplished: ", isAccomplished);
-
     const word = isAccomplished ? "Accomplished" : "Incomplete";
     const color = isAccomplished ? "green" : "orangered";
 

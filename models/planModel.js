@@ -6,8 +6,8 @@ const planSchema = new mongoose.Schema(
       type: String,
       required: [true, "A plan must have a name"],
       trim: true,
-      maxlength: [30, "A plan name must have less or equal than 30 characters"],
-      minlength: [3, "A plan name must have at least 3 characters"]
+      maxlength: [30, "A plan name must have less or equal than 30 characters"]
+      // minlength: [1, "A plan name must have at least 1 character"]
       // unique: [true, "A plan name should be unique"]
     },
     duration: {

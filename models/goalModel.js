@@ -3,10 +3,6 @@ const Plan = require("../models/planModel");
 
 const goalSchema = new mongoose.Schema(
   {
-    // date: {
-    //   type: Date,
-    //   required: [true, "A daily goal must have a date"]
-    // },
     plan: {
       type: mongoose.Schema.ObjectId,
       ref: "Plan",
@@ -34,9 +30,7 @@ goalSchema.index({ createdAt: -1 });
 
 //! Instance method for goal doc to check all exercises are completed
 goalSchema.methods.checkAccomplished = function() {
-  // console.log("😡Check funci nside", this.progress);
   const isAllAccomplished = this.progress.every(el => el.isCompleted === true);
-  // console.log("😡All accomplished: ", isAllAccomplished);
 
   return isAllAccomplished;
 };
@@ -77,6 +71,7 @@ goalSchema.pre(/^save/, async function(next) {
   console.log("🥵  is Accomplished after", this.isAccomplished);
 
   next();
+
   // [How to access doc in pre query hook]
   // const docToUpdate = await this.model.findOne(this.getQuery());
   // console.log(

@@ -56,6 +56,7 @@ header h3 {
 .header-p {
   font-size: 1.4rem;
   font-weight: bolder;
+  margin-bottom: 1rem;
 }
 
 .header-p--s {
@@ -64,22 +65,15 @@ header h3 {
 main {
   width: 100%;
   display: flex;
-  /* flex-direction: column; */
-  /* justify-content: space-between; */
   justify-content: flex-start;
 }
-/* main section:not(:last-child) {
-  margin-right: 20rem;
-} */
+
 .plan-container {
   display: flex;
   flex-direction: column;
-  /* margin-right: 10rem; */
   border-right: solid grey 1px;
-  /* justify-content: center;
-  align-items: flex-start;
-  */
 }
+
 .plan-container > * {
   margin-right: 3rem;
 }
@@ -94,22 +88,15 @@ main {
   font-weight: 300;
   text-align: center;
 }
-/* .btn {
-  margin: 0 20%;
-} */
+
 .plan__new {
-  /* width: 30rem; */
   border-radius: 3px;
-  /* border: rgb(171, 171, 171) 1px solid; */
 }
 
 .plan__old {
-  /* border: red 1px solid; */
   width: 60rem;
-  /* min-height: 100%; */
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
 }
 .carousel {
   width: 60rem;
@@ -118,8 +105,6 @@ main {
 form {
   display: flex;
   justify-content: space-between;
-  /* flex-direction: column; */
-  /* border: red 1px solid; */
 }
 
 .modal form {
@@ -150,7 +135,6 @@ input.valid {
 
 .carousel {
   overflow: visible !important;
-  /* height: 100%; */
 }
 
 .carousel .carousel-item {
@@ -197,6 +181,45 @@ input.valid {
   background-color: #4100c2;
   color: #fff;
 }
+
+input[type="checkbox"] + span {
+  padding-left: 24px !important;
+}
+[type="checkbox"]:not(:checked) + span::before {
+  border: 1px solid #5a5a5a !important;
+}
+
+.setGoalBtn {
+  /* margin-top: 1rem; */
+  border-top: none !important;
+}
+
+.goal-container {
+  min-width: 25rem;
+  font-size: 1rem;
+}
+
+#isAccomplished {
+  color: #fff;
+  padding: 1px 3px;
+  border-radius: 3px;
+}
+
+.goal-date {
+  color: #5711e1;
+  font-weight: bolder;
+}
+
+.goal-planName {
+  font-weight: bolder;
+}
+
+@media only screen and (max-width: 900px) {
+  main {
+    flex-direction: column;
+  }
+}
+
 @keyframes newlyAdded {
   0% {
     left: 0;
@@ -236,54 +259,4 @@ input.valid {
     background-color: #fff;
     transform: translateX(0%);
   }
-}
-
-input[type="checkbox"] + span {
-  padding-left: 24px !important;
-}
-[type="checkbox"]:not(:checked) + span::before {
-  border: 1px solid #5a5a5a !important;
-}
-
-.setGoalBtn {
-  /* margin-top: 1rem; */
-  border-top: none !important;
-}
-
-.goal-container {
-  min-width: 25rem;
-  font-size: 1rem;
-}
-
-@media only screen and (max-width: 900px) {
-  main {
-    flex-direction: column;
-  }
-}
-#isAccomplished {
-  /* background: rgb(255, 106, 6); */
-  /* border: 1px solid orangered; */
-  color: #fff;
-  padding: 1px 3px;
-  border-radius: 3px;
-}
-/* #exercise::before {
-  content: "Exercise";
-  font-weight: bolder;
-  font-size: 1.2rem;
-  position: absolute;
-  top: -1rem;
-} */
-.collection {
-  /* padding: 2rem; */
-  /* width: 30rem; */
-}
-
-.goal-date {
-  color: #5711e1;
-  font-weight: bolder;
-}
-
-.goal-planName {
-  font-weight: bolder;
 }
