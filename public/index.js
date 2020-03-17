@@ -1,7 +1,7 @@
 $(document).ready(function() {
-  const setGoalBtn = `<div class="card-action setGoalBtn">
-    <a class="waves-effect waves-light btn-small deep-purple darken-1"><i class="material-icons right">flag</i>Set goal</a>
-  </div>`;
+  // const setGoalBtn = `<div class="card-action setGoalBtn">
+  //   <a class="waves-effect waves-light btn-small deep-purple darken-1"><i class="material-icons right">flag</i>Set goal</a>
+  // </div>`;
 
   init();
 
@@ -34,7 +34,7 @@ $(document).ready(function() {
     //* 2. Add event handlers
     $("#form--plan").submit(addPlanBtnHandler);
     $("#form--exercise").submit(addExerciseHandler);
-    $(".setGoalBtn").click(setGoalHandler);
+    // $(".setGoalBtn").click(setGoalHandler);
     $(`[type="checkbox"]`).change(progressChecker);
 
     //* 3. Init modal
@@ -78,7 +78,7 @@ $(document).ready(function() {
                   <div class="card-action exercise">
                    ${exerciseHTML}
                   </div>
-                  ${plan.exercise.length > 0 ? setGoalBtn : ""}
+                  ${plan.exercise.length > 0 ? renderSetGoalBtn() : ""}
                 </div>
             </div>`;
 
@@ -92,6 +92,9 @@ $(document).ready(function() {
 
     //* 4. Init carousel
     initCarousel();
+
+    //* 5. Add set goal BTN event handler
+    $(".setGoalBtn").click(setGoalHandler);
   }
 
   //! BTN Event Handler(add a plan)
@@ -153,12 +156,26 @@ $(document).ready(function() {
       .css({ animation: "newlyAdded2 .6s" });
 
     // 5. Add set goal BTN if it doesn't exist
-    if ($(`#${id} .setGoalBtn`).length === 0) exerciseDOM.after(setGoalBtn);
+    if ($(`#${id} .setGoalBtn`).length === 0) {
+      renderSetGoalBtn(exerciseDOM);
+      $(`#${id} .setGoalBtn`).click(setGoalHandler);
+    }
 
-    // Close modal
+    // 6. Close modal
     $(".modal").modal("close");
   }
 
+  function renderSetGoalBtn(addBtnAfterThis) {
+    const setGoalBtnHTML = `<div class="card-action setGoalBtn">
+       <a class="waves-effect waves-light btn-small deep-purple darken-1"><i class="material-icons right">flag</i>Set goal</a>
+     </div>`;
+
+    // If addBtnAfterThis is not given, just return HTML
+    if (!addBtnAfterThis) return setGoalBtnHTML;
+
+    // addBtnAfterThis : jQuery obj
+    addBtnAfterThis.after(setGoalBtnHTML);
+  }
   //! Render all goals list(Progress checking list)
   async function renderGoals() {
     //* 1. Get all goals from DB
@@ -178,6 +195,7 @@ $(document).ready(function() {
 
   //! Render today's new goal
   async function setGoalHandler(e) {
+    console.log("🍒 add a new goal btn clicked!");
     e.preventDefault();
 
     //* 1. Get the clicked plan's id from DOM
@@ -241,6 +259,7 @@ $(document).ready(function() {
 
     //* Return HTML (goal list including exercise checkbox)
     return `<li class="collection-item goal-item" id="${goalObj._id}">
+    <p>${new Date(goalObj.createdAt).toDateString()}</p>
    <span>${goalObj.plan.planName}</span>
    <span id="isAccomplished" style="background: ${
      goalObj.isAccomplished ? "green" : "orangered"
@@ -249,6 +268,7 @@ $(document).ready(function() {
 </li>`;
   }
 
+  //! Rendering Accomplished or Incomplete mark
   function renderProgressResult(progressId, isAccomplished) {
     console.log("😧changed isAccomplished: ", isAccomplished);
 

@@ -1,7 +1,9 @@
 const Goal = require("../models/goalModel");
 
 exports.getAllGoals = async (req, res, next) => {
-  const goals = await Goal.find().sort({ createdAt: -1 });
+  const goals = await Goal.find()
+    .sort({ createdAt: -1 })
+    .limit(7);
 
   res.status(200).json({
     status: "success",

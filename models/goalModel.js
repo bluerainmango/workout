@@ -30,6 +30,8 @@ const goalSchema = new mongoose.Schema(
   }
 );
 
+goalSchema.index({ createdAt: -1 });
+
 //! Instance method for goal doc to check all exercises are completed
 goalSchema.methods.checkAccomplished = function() {
   // console.log("😡Check funci nside", this.progress);
