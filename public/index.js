@@ -138,7 +138,9 @@ $(document).ready(function() {
       $(`#${id} .setGoalBtn`).click(setGoalHandler);
     }
 
-    // 6. Close modal
+    // 6. Delete values and close modal
+    $("#exerciseName").empty();
+    $("#exerciseDuration").empty();
     $(".modal").modal("close");
   }
 

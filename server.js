@@ -1,4 +1,4 @@
-const express = require("express");
+// const express = require("express");
 const mongoose = require("mongoose");
 require("dotenv").config();
 
@@ -14,6 +14,14 @@ mongoose
   .then(() => {
     console.log("MongoDB is successfully connected!");
   });
+
+let db = mongoose.connection;
+
+db.on("error", console.error.bind(console, "connection error:"));
+
+db.once("open", function callback() {
+  console.log("db is opened...");
+});
 
 const app = require("./app");
 

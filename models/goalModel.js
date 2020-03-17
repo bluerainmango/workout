@@ -53,22 +53,23 @@ goalSchema.pre(/^save/, async function(next) {
   if (!this.isNew) return next();
 
   //* 1. Get exercise arr with this goal doc's plan id
+
   const { exercise } = await Plan.findById(this.plan);
   const exerciseIdArr = exercise.map(el => el._id);
 
   //* 2. Add this exercise arr to doc.progress prop
   this.recordProgress(exerciseIdArr);
 
-  console.log("🙉 Added progress prop to this goal doc: ", this.progress);
+  // console.log("🙉 Added progress prop to this goal doc: ", this.progress);
 
   next();
 });
 
 //! Pre Save Hook : update isAccomplished prop
 goalSchema.pre(/^save/, async function(next) {
-  console.log("🥶 is Accomplished before", this.isAccomplished);
+  // console.log("🥶 is Accomplished before", this.isAccomplished);
   this.isAccomplished = this.checkAccomplished();
-  console.log("🥵  is Accomplished after", this.isAccomplished);
+  // console.log("🥵 is Accomplished after", this.isAccomplished);
 
   next();
 
