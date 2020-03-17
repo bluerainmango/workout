@@ -25,15 +25,40 @@ body {
   flex-direction: column; */
   margin: 0 auto;
 }
+.devider {
+  color: rgb(128, 128, 128);
+  /* border-bottom: 1px solid rgb(201, 201, 201); */
+  position: relative;
+  height: 10rem;
+  /* text-align: center; */
+  font-size: 2rem;
+  color: rgb(201, 201, 201);
+}
+
+.devider::after {
+  content: "OR";
+  font-size: 2rem;
+  position: absolute;
+  color: rgb(201, 201, 201);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 
 .m-bottom {
   margin-bottom: 2rem;
 }
+
 header h3 {
   font-weight: 200 !important;
 }
 
 .header-p {
+  font-size: 1.4rem;
+  font-weight: bolder;
+}
+
+.header-p--s {
   font-size: 1.4rem;
 }
 main {
@@ -252,4 +277,13 @@ input[type="checkbox"] + span {
 .collection {
   /* padding: 2rem; */
   /* width: 30rem; */
+}
+
+.goal-date {
+  color: #5711e1;
+  font-weight: bolder;
+}
+
+.goal-planName {
+  font-weight: bolder;
 }

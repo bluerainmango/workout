@@ -1,29 +1,5 @@
 $(document).ready(function() {
-  // const setGoalBtn = `<div class="card-action setGoalBtn">
-  //   <a class="waves-effect waves-light btn-small deep-purple darken-1"><i class="material-icons right">flag</i>Set goal</a>
-  // </div>`;
-
   init();
-
-  async function progressChecker(e) {
-    const clickedProgressId = e.target.id;
-    const isChecked = e.target.checked;
-
-    console.log(
-      "🐨 clicked progress id: ",
-      clickedProgressId,
-      "checked:",
-      isChecked
-    );
-
-    const result = await axios.patch(
-      `/api/goals/subDocId/${clickedProgressId}/isChecked/${isChecked}`
-    );
-    const { isAccomplished } = result.data.data;
-    console.log("😵 updated goal: ", isAccomplished);
-
-    renderProgressResult(clickedProgressId, isAccomplished);
-  }
 
   //! Init function
   async function init() {
@@ -165,6 +141,7 @@ $(document).ready(function() {
     $(".modal").modal("close");
   }
 
+  //! Render 'Set Goal' BTN
   function renderSetGoalBtn(addBtnAfterThis) {
     const setGoalBtnHTML = `<div class="card-action setGoalBtn">
        <a class="waves-effect waves-light btn-small deep-purple darken-1"><i class="material-icons right">flag</i>Set goal</a>
@@ -176,6 +153,7 @@ $(document).ready(function() {
     // addBtnAfterThis : jQuery obj
     addBtnAfterThis.after(setGoalBtnHTML);
   }
+
   //! Render all goals list(Progress checking list)
   async function renderGoals() {
     //* 1. Get all goals from DB
@@ -257,15 +235,40 @@ $(document).ready(function() {
       );
     }, "");
 
+    const addedDate = new Date(goalObj.createdAt).toDateString();
+
     //* Return HTML (goal list including exercise checkbox)
     return `<li class="collection-item goal-item" id="${goalObj._id}">
-    <p>${new Date(goalObj.createdAt).toDateString()}</p>
-   <span>${goalObj.plan.planName}</span>
-   <span id="isAccomplished" style="background: ${
-     goalObj.isAccomplished ? "green" : "orangered"
-   }">${goalObj.isAccomplished ? "Accomplished" : "Incomplete"}</span>
-   ${exercisesHTML}
-</li>`;
+              <p class="goal-date">${addedDate}</p>
+              <span class="goal-planName">${goalObj.plan.planName}</span>
+              <span id="isAccomplished" style="background: ${
+                goalObj.isAccomplished ? "green" : "orangered"
+              }">
+                ${goalObj.isAccomplished ? "Accomplished" : "Incomplete"}
+              </span>
+              ${exercisesHTML}
+          </li>`;
+  }
+
+  //! Goal progress checker
+  async function progressChecker(e) {
+    const clickedProgressId = e.target.id;
+    const isChecked = e.target.checked;
+
+    console.log(
+      "🐨 clicked progress id: ",
+      clickedProgressId,
+      "checked:",
+      isChecked
+    );
+
+    const result = await axios.patch(
+      `/api/goals/subDocId/${clickedProgressId}/isChecked/${isChecked}`
+    );
+    const { isAccomplished } = result.data.data;
+    console.log("😵 updated goal: ", isAccomplished);
+
+    renderProgressResult(clickedProgressId, isAccomplished);
   }
 
   //! Rendering Accomplished or Incomplete mark
