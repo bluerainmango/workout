@@ -8,7 +8,7 @@ Keep track your daily workout!
 
 ### 💎 Used Skills
 
-MongoDB, Mongoose, Node.js, Express, Javascript, HTML, CSS
+MongoDB, Mongoose, Node.js, Express, Javascript, HTML, CSS, Materialize
 
 ## 🎯 Purpose
 
@@ -19,6 +19,6 @@ Build your own exercise plan and keep track daily workouts so that it helps achi
 - Easily utilize previous plans or create a new plan.
 - Quickly check progress and get motivated from the last 7 plans.
 
-### ✨ Demo
+## ✨ Demo
 
 ![screenshot](/demo.gif)
