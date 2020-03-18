@@ -1,6 +1,6 @@
 # Workout Tracker
 
-Keep track your daily workout!
+Keep track of your daily workout!
 
 ### 🖥 Deployed ver.
 
@@ -12,7 +12,7 @@ MongoDB, Mongoose, Node.js, Express, Javascript, HTML, CSS, Materialize
 
 ## 🎯 Purpose
 
-Build your own exercise plan and keep track daily workouts so that it helps achieving your fitness goal.
+Build your own exercise plan and keep track of your daily workouts so that it helps to achieve your fitness goal.
 
 ## 🔑 Feature
 
