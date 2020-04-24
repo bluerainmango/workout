@@ -4,7 +4,7 @@ Keep track of your daily workout!
 
 ### 🖥 Deployed ver.
 
-👉 [Heroku](https://desolate-brushlands-16007.herokuapp.com/)
+👉 [Heroku](https://workout-tracker-emily.herokuapp.com/)
 
 ### 💎 Used Skills
 
