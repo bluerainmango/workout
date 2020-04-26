@@ -9,20 +9,24 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
     />
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
     <header><h3>Daily Workout Planner</h3></header>
-    <p class="header-p--s m-bottom">Choose today's workout plan and keep track of your daily progress!</p>
-    
+    <p class="header-p--s m-bottom">
+      Choose today's workout plan and keep track of your daily progress!
+    </p>
+
     <main>
-       <div class="plan-container">
+      <div class="plan-container">
         <p class="title">1. Pick Today's Plan</p>
         <section class="plan__new">
           <p class="header-p center">Create New Plan</p>
           <form class="form" id="form--plan">
-            
             <div class="row">
               <div class="input-field">
                 <input id="planName" type="text" required />
@@ -37,27 +41,34 @@
             </div>
             <div class="row">
               <div class="input-field">
-                <textarea id="description" class="materialize-textarea"></textarea>
+                <textarea
+                  id="description"
+                  class="materialize-textarea"
+                ></textarea>
                 <label for="description">Description</label>
               </div>
             </div>
 
-            <button class="waves-effect waves-light btn deep-purple">Add</button>
+            <button class="waves-effect waves-light btn addBtn deep-purple">
+              Add
+            </button>
           </form>
         </section>
 
         <section class="devider"></section>
 
         <section class="plan__old">
-            <p class="header-p center">Select from Previous Plans</p>
-            <div class="carousel">
+          <p class="header-p center">Select from Previous Plans</p>
+          <div class="carousel">
         </section>
       </div>
-      
+
       <section class="goal-container">
-          <p class="title">2. Check Progress (last 7 plans)</p>
-          <ul class="collection goals"></ul>
-        </section>
+        <p class="title">
+          2. Check Progress<span class="title-sub">Last 7 plans</span>
+        </p>
+        <ul class="collection goals"></ul>
+      </section>
     </main>
 
     <!-- MODAL -->
@@ -65,13 +76,13 @@
       <div class="modal-content">
         <a href="#!" class="modal-close btn-flat right">X</a>
         <p class="title">New Exercise</p>
-        
+
         <form class="form" id="form--exercise">
           <div class="row container">
-              <div class="input-field">
-                <input id="exerciseName" type="text" required />
-                <label for="exerciseName">Exercise Name</label>
-              </div>
+            <div class="input-field">
+              <input id="exerciseName" type="text" required />
+              <label for="exerciseName">Exercise Name</label>
+            </div>
           </div>
           <div class="row container">
             <div class="input-field">
@@ -79,7 +90,11 @@
               <label for="exerciseDuration">Duration(minutes)</label>
             </div>
           </div>
-          <button class="waves-effect waves-light btn deep-purple lighten-1 container">Add</button>
+          <button
+            class="waves-effect waves-light btn deep-purple lighten-1 container"
+          >
+            Add
+          </button>
         </form>
       </div>
     </div>
