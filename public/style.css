@@ -79,9 +79,9 @@ main {
   /* border-right: solid rgb(224, 224, 224) 1px; */
 }
 
-.plan-container > * {
-  /* margin-right: 3rem; */
-}
+/* .plan-container > * {
+  margin-right: 3rem;
+} */
 
 .goal-container {
   /* margin-left: 3rem; */

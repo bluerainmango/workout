@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
   init();
 
   //! Init function
@@ -29,8 +29,9 @@ $(document).ready(function() {
         (acc, workout) =>
           acc +
           `<p>
-            <span>${workout.exerciseName || ""} (${workout.duration ||
-            ""} min)</span>
+            <span>${workout.exerciseName || ""} (${
+            workout.duration || ""
+          } min)</span>
           </p>`,
         ""
       );
@@ -46,8 +47,9 @@ $(document).ready(function() {
                     </p>
                   </div>
                   <div class="card-action">
-                    <p class="duration">Duration(min): <span>${plan.duration ||
-                      ""}</span></p>
+                    <p class="duration">Duration(min): <span>${
+                      plan.duration || ""
+                    }</span></p>
                     <a class="btn-floating halfway-fab waves-effect waves-light deep-purple lighten-2 modal-trigger" href="#modal1""><i class="material-icons">add</i></a>
                   </div>
                   <div class="card-action exercise">
@@ -61,9 +63,7 @@ $(document).ready(function() {
     }, "");
 
     //* 3. Add carousel HTML to DOM
-    $(".carousel")
-      .empty()
-      .append(cardsHTML);
+    $(".carousel").empty().append(cardsHTML);
 
     //* 4. Init carousel
     initCarousel();
@@ -85,7 +85,7 @@ $(document).ready(function() {
     await axios.post("/api/plans", {
       planName,
       duration,
-      description
+      description,
     });
 
     //* 3. Rerender carousel
@@ -94,9 +94,18 @@ $(document).ready(function() {
     //* 4. Execute carousel animation
     cardAnimation();
 
-    $("input,textarea,label")
-      .val("")
-      .removeClass("active valid");
+    $("input,textarea,label").val("").removeClass("active valid");
+
+    //* 5. Scroll down in Mobile
+    scrollDown();
+  }
+
+  //! Scroll down function
+  function scrollDown() {
+    if (window.innerWidth <= 800) {
+      console.log("🍉 scroll");
+      window.scrollTo(window.scrollX, window.scrollY + 300);
+    }
   }
 
   //! BTN Event Handler(add a exercise)
@@ -114,7 +123,7 @@ $(document).ready(function() {
     await axios.post("/api/exercises", {
       exerciseName,
       duration: exerciseDuration,
-      plan: id
+      plan: id,
     });
 
     // 4. Add new exercise HTML & animation to the plan DOM
@@ -202,25 +211,28 @@ $(document).ready(function() {
 
     //* 5. Add event handler
     $(`[type="checkbox"]`).change(progressChecker);
+
+    //* 6. Scroll down in Mobile
+    scrollDown();
   }
 
   //! Create HTML(one goal)
   function oneGoalListHTML(goalObj) {
     const {
       plan: { exercise },
-      progress
+      progress,
     } = goalObj;
 
     //* Combine exercise and progress into one obj
     const ultimateProgress = progress.map((el, i) => {
-      const workoutObj = exercise.filter(workout => {
+      const workoutObj = exercise.filter((workout) => {
         return el.exerciseId === workout.id;
       });
 
       return {
         exerciseName: workoutObj[0].exerciseName,
         duration: workoutObj[0].duration,
-        ...el
+        ...el,
       };
     });
 
@@ -296,7 +308,7 @@ $(document).ready(function() {
       noWrap: false,
       dist: 0,
       numVisible: 3,
-      shift: 10
+      shift: 10,
     });
 
     $(".carousel").carousel("next");
@@ -306,7 +318,7 @@ $(document).ready(function() {
   function cardAnimation() {
     $(".carousel-item:first .card").css({
       //   transition: "transform 1s cubic-bezier(0,1.68,1,1.43)",
-      animation: "newlyAdded 1s"
+      animation: "newlyAdded 1s",
     });
   }
 });
